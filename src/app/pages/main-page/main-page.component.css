@@ -1,0 +1,36 @@
+.innerMainWrapp {
+  width: 1300px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.title {
+  font-size: 30px;
+  color: #000;
+  padding-left: 20px;
+}
+
+.dishesWrapp {
+  width: 1300px;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-y: auto;
+}
+
+.dish {
+  width: 250px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid lightgray;
+}

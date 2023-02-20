@@ -1,0 +1,24 @@
+.topBar {
+  width: 100%;
+  height: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.service {
+  width: 120px;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 50px;
+}
+
+.service:hover {
+  background-color: rgb(194, 194, 194);
+}
