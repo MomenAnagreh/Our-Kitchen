@@ -1,7 +1,19 @@
 <div class="sideBar">
-  <div class="logo">Logo</div>
-  <div class="service">Home</div>
-  <div class="service">Services</div>
-  <div class="service">Orders</div>
-  <div class="service">Wishlist</div>
+  <div class="logo" [routerLink]="['/']">
+    <img class="img" src="../../../assets/logo.ico" alt="" />
+  </div>
+  <div
+    class="service"
+    [routerLink]="['']"
+    routerLinkActive="router-link-active"
+  >
+    Home
+  </div>
+  <div
+    class="service"
+    [routerLink]="['orders']"
+    routerLinkActive="router-link-active"
+  >
+    Orders
+  </div>
 </div>

@@ -1,0 +1,29 @@
+<div class="mainPopup">
+  <div class="mainWrapp">
+    <div class="imgWrapp">
+      <img class="img" *ngIf="url" [src]="url" alt="" />
+      <label class="fileWrapp">
+        <input class="file" type="file" (change)="onChange($event)" />
+        <p>attach</p>
+        <mat-icon class="icon">attachment</mat-icon>
+      </label>
+    </div>
+    <input [(ngModel)]="name" class="name" type="text" placeholder="name" />
+    <input
+      [(ngModel)]="price"
+      class="name"
+      type="number"
+      placeholder="price"
+      min="0"
+    />
+    <textarea
+      [(ngModel)]="description"
+      class="textarea"
+      placeholder="Description"
+    ></textarea>
+    <div class="btnWrapp">
+      <button class="sbtBtn" (click)="Submit()">Submit</button>
+      <button class="sbtBtn" (click)="hide()">Cancel</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div class="ordersWrapp">
+  <div class="orderWrapp" *ngFor="let order of authService.userOrders">
+    <div class="header">
+      <div class="headerItem">
+        <h2>Order Placed</h2>
+        <h1>{{ order.date }}</h1>
+      </div>
+      <div class="headerItem">
+        <h2>Total</h2>
+        <h1>{{ getTotal(order) }}</h1>
+      </div>
+      <div class="headerItem">
+        <mat-icon class="icon" (click)="delete(order.date)">delete</mat-icon>
+      </div>
+    </div>
+    <div class="item" *ngFor="let dish of order.dishes; let i = index">
+      <div class="imgItems">
+        <img class="img" [src]="dish.image" alt="" />
+        <div class="itemsWrapp">
+          <h1>{{ dish.name }}</h1>
+          <h3>Quantity: {{ order.quantities[i] }}</h3>
+        </div>
+      </div>
+      <div class="itemsWrapp">
+        <h1>${{ getPrice(dish.price, order.quantities[i]) }}</h1>
+      </div>
+    </div>
+  </div>
+</div>

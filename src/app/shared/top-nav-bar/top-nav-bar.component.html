@@ -1,5 +1,47 @@
 <div class="topBar">
-  <div class="service">Search</div>
-  <div class="service">Cart</div>
-  <div class="service">Help</div>
+  <div class="innerWrapp left">
+    <input
+      class="input"
+      [(ngModel)]="search"
+      (ngModelChange)="filter()"
+      type="text"
+      placeholder="Search"
+      *ngIf="getUrl()"
+    />
+  </div>
+
+  <div class="right" [ngClass]="authService.checkUser() ? two : one">
+    <div class="iconWrapp" [routerLink]="['/cart']">
+      <mat-icon class="icon">shopping_cart</mat-icon>
+
+      <div class="itemCount">{{ getCount() }}</div>
+    </div>
+
+    <div
+      class="intials"
+      *ngIf="authService.checkUser()"
+      [routerLink]="['/account']"
+      routerLinkActive="router-link-active"
+    >
+      {{ authService.initials }}
+    </div>
+
+    <button
+      class="btn blue"
+      [routerLink]="['/signin']"
+      routerLinkActive="router-link-active"
+      *ngIf="!authService.checkUser()"
+    >
+      Sign In
+    </button>
+
+    <button
+      class="btn red"
+      routerLinkActive="router-link-active"
+      *ngIf="authService.checkUser()"
+      (click)="logout()"
+    >
+      Logout
+    </button>
+  </div>
 </div>

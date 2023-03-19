@@ -1,1 +1,8 @@
-<app-home-page></app-home-page>
+<div class="compWrapp">
+  <app-side-nav-bar *ngIf="generalService.spinner"></app-side-nav-bar>
+
+  <div class="main">
+    <app-top-nav-bar *ngIf="generalService.spinner"></app-top-nav-bar>
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -3,16 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { SharedModule } from './shared/shared.module';
 import { SideNavBarComponent } from './shared/side-nav-bar/side-nav-bar.component';
-import { MainPageComponent } from './pages/main-page/main-page.component';
-import { RightNavBarComponent } from './pages/right-nav-bar/right-nav-bar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
+import { TopNavBarComponent } from './shared/top-nav-bar/top-nav-bar.component';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent, HomePageComponent, MainPageComponent, RightNavBarComponent],
-  imports: [BrowserModule, AppRoutingModule, SharedModule],
-  providers: [],
+  declarations: [AppComponent, SideNavBarComponent, TopNavBarComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    FormsModule,
+    CommonModule,
+  ],
+  providers: [DatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -1,1 +1,34 @@
-<div class="rightNavBar">Test2</div>
+<div class="rightNavBar">
+  <div class="innerWrapp" *ngIf="generalService.display">
+    <img [src]="generalService.display.image" alt="" class="img" />
+
+    <div class="detail">
+      <h1>Name:</h1>
+      <p>{{ generalService.display.name }}</p>
+    </div>
+
+    <div class="detail">
+      <div class="price">
+        <h1>Price:</h1>
+
+        <div class="cart">
+          <button class="btn" (click)="addToCart()">add to cart</button>
+          <h4>Qty:</h4>
+          <input
+            [(ngModel)]="quantity"
+            class="number"
+            type="number"
+            min="1"
+            max="99"
+          />
+        </div>
+      </div>
+      <p>{{ generalService.display.price }}</p>
+    </div>
+
+    <div class="detail desc">
+      <h1>Description:</h1>
+      <p>{{ generalService.display.desc }}</p>
+    </div>
+  </div>
+</div>

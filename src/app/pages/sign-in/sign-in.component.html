@@ -1,0 +1,64 @@
+<div class="main">
+  <form class="formWrapp" [formGroup]="form">
+    <h1>Sign In</h1>
+
+    <div class="inputWrapp">
+      <input
+        class="input"
+        type="email"
+        placeholder="Email"
+        formControlName="email"
+      />
+
+      <p
+        class="err"
+        *ngIf="!email.errors?.['valid'] && email.touched && email.dirty"
+      >
+        Please enter a correct email
+      </p>
+
+      <div class="passInputWrapp">
+        <input
+          class="inputPass"
+          type="password"
+          placeholder="Password"
+          formControlName="password"
+          Name="password"
+          #pass
+        />
+
+        <button class="showPass" (click)="showPass()" type="button">
+          <mat-icon class="icon" *ngIf="showPassword" style="font-size: 24px"
+            >visibility_off</mat-icon
+          >
+          <mat-icon class="icon" *ngIf="!showPassword" style="font-size: 24px"
+            >visibility</mat-icon
+          >
+        </button>
+      </div>
+
+      <p
+        class="err"
+        *ngIf="!password.errors?.['valid'] && password.touched && password.dirty"
+      >
+        Please enter a correct password
+      </p>
+
+      <div class="extra">
+        <a href="">Help</a>
+        <a href="">Remember me</a>
+      </div>
+    </div>
+    <p class="signup">
+      If you dont have an account please <a href="signup">sign up</a>
+    </p>
+
+    <button
+      class="btn"
+      (click)="login()"
+      [disabled]="!email.errors?.['valid'] || !password.errors?.['valid']"
+    >
+      Sign in
+    </button>
+  </form>
+</div>

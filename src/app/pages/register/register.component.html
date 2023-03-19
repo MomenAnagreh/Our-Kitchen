@@ -1,0 +1,121 @@
+<div class="main">
+  <form class="formWrapp" [formGroup]="form">
+    <h1 class="title">Sign up</h1>
+
+    <input
+      type="text"
+      id="username"
+      name="username"
+      class="input"
+      placeholder="Username"
+      formControlName="username"
+    />
+
+    <div
+      *ngIf="!username.valid && username.dirty && username.touched"
+      class="error"
+    >
+      Enter a valid username:
+      <p>1. Only contains alphanumeric characters, underscore and dot.</p>
+      <p>
+        2. Underscore and dot can't be at the end or start of a username (e.g
+        _username / username_ / .username / username.).
+      </p>
+      <p>3. Underscore and dot can't be next to each other (e.g user_.name).</p>
+      <p>
+        4. Underscore or dot can't be used multiple times in a row (e.g
+        user__name / user..name).
+      </p>
+      <p>Number of characters must be between 8 to 20.</p>
+    </div>
+
+    <input
+      type="email"
+      id="email"
+      name="email"
+      class="input"
+      placeholder="Email"
+      formControlName="email"
+    />
+    <div
+      *ngIf="!email.errors?.['valid'] && email.dirty && email.touched"
+      class="error"
+    >
+      enter a valid email
+    </div>
+
+    <div
+      *ngIf="email.errors?.['hasemail'] && email.dirty && email.touched"
+      class="error"
+    >
+      email already exist
+    </div>
+
+    <form formGroupName="pwd" class="formWrappOne">
+      <div class="passInputWrapp">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="pass"
+          placeholder="Password"
+          formControlName="password"
+          #pass
+        />
+        <button class="showPass" (click)="showPass()" type="button">
+          <mat-icon class="icon" *ngIf="showPassword" style="font-size: 24px"
+            >visibility_off</mat-icon
+          >
+          <mat-icon class="icon" *ngIf="!showPassword" style="font-size: 24px"
+            >visibility</mat-icon
+          >
+        </button>
+      </div>
+
+      <div
+        *ngIf="pwd.get('password')?.errors?.['valid'] && pwd.get('password')?.touched && pwd.get('password')?.dirty"
+        class="error"
+      >
+        Enter a valid password:
+        <p>
+          1. Minimum
+          {{ pwd.get('password')?.errors?.['requiredLength'] }} characters.
+        </p>
+        <p>2. At least one uppercase letter.</p>
+        <p>3. At least one lowercase letter.</p>
+        <p>4. At least one number.</p>
+      </div>
+
+      <div class="passInputWrapp">
+        <input
+          type="password"
+          id="confirm"
+          name="confirm"
+          class="passInputField"
+          placeholder="Confirm Password"
+          formControlName="confirm"
+          #conf
+        />
+      </div>
+
+      <div
+        *ngIf="pwd.errors?.['pwdNotMatch'] && pwd.get('confirm')?.touched && pwd.get('confirm')?.dirty"
+        class="error"
+      >
+        Password not matched!
+      </div>
+    </form>
+
+    <button
+      class="btn"
+      style="margin-top: 20px"
+      (click)="signup()"
+      type="button"
+      [disabled]="!email.errors?.['valid'] || email.errors?.['hasemail'] || !username.valid || !pwd.valid"
+    >
+      Sign up
+    </button>
+    <p style="font-size: 20px">or</p>
+    <a routerLink="/signin" style="color: black; font-size: 20px"> Sign in </a>
+  </form>
+</div>

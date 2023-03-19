@@ -1,0 +1,125 @@
+<div class="loading" *ngIf="spinner">
+  Processing <mat-spinner class="spinner"></mat-spinner>
+</div>
+
+<div class="done" *ngIf="done">
+  <p>Done!</p>
+  <p>Thank you for your purchase</p>
+  <p>Checkout your <a href="">orders</a> from here</p>
+</div>
+
+<div class="pageWrapp" *ngIf="!done">
+  <div class="pageInnerWrapp">
+    <form class="form" [formGroup]="form">
+      <div class="cdInptWrapp">
+        <label for="card">Card number:</label>
+        <input type="text" name="card" maxlength="19" formControlName="card" />
+      </div>
+      <div
+        class="cdInptWrapp"
+        *ngIf="!card.valid && card.touched && card.dirty"
+      >
+        <p class="error"></p>
+        <p class="error">Enter a valid number</p>
+      </div>
+
+      <div class="cdInptWrapp">
+        <label for="name">Name on card:</label>
+        <input type="text" name="name" formControlName="name" />
+      </div>
+      <div
+        class="cdInptWrapp"
+        *ngIf="!name.errors?.['valid'] && name.touched && name.dirty"
+      >
+        <p class="error"></p>
+        <p class="error">Enter a longer name</p>
+      </div>
+
+      <div class="cdInptWrapp">
+        <label for="exp">Expiration date:</label>
+        <input type="month" name="exp" formControlName="exp" />
+      </div>
+      <div
+        class="cdInptWrapp"
+        *ngIf="!exp.errors?.['valid'] && exp.touched && exp.dirty"
+      >
+        <p class="error"></p>
+        <p class="error">Enter a valid date</p>
+      </div>
+
+      <div class="cdInptWrapp">
+        <label for="sc">Security Code (CVV/CVC):</label>
+        <input
+          type="tex"
+          name="sc"
+          formControlName="sc"
+          minlength="3"
+          maxlength="4"
+        />
+      </div>
+      <div
+        class="cdInptWrapp"
+        *ngIf="!sc.errors?.['valid'] && sc.touched && sc.dirty"
+      >
+        <p class="error"></p>
+        <p class="error">Enter a valid number</p>
+      </div>
+    </form>
+
+    <div class="itemsWrapp">
+      <div class="item" *ngFor="let item of generalService.cart | keyvalue">
+        <div class="imgName">
+          <img class="img" [src]="getImage(+item.key)" alt="" />
+
+          <h1 class="name">{{ getDish(+item.key).name }}</h1>
+        </div>
+
+        <div class="toolsWrapp">
+          <h1>${{ getPrice(item.key, item.value) }}</h1>
+
+          <div class="actionWrapp">
+            <input
+              class="number"
+              type="number"
+              min="1"
+              max="99"
+              value="{{ item.value }}"
+              (change)="changeQ(item.key, $event)"
+            />
+            <mat-icon class="icon" (click)="delete(item.key)">delete</mat-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout">
+    <div class="subWrapp">
+      <h1>Subtotal:</h1>
+      <h2>${{ +prices.subtotal.toFixed(2) }}</h2>
+    </div>
+
+    <div class="subWrapp">
+      <h1>Service:</h1>
+      <h2>${{ +prices.service.toFixed(2) }}</h2>
+    </div>
+
+    <div class="subWrapp">
+      <h1>Tax:</h1>
+      <h2>${{ +prices.tax.toFixed(2) }}</h2>
+    </div>
+
+    <div class="subWrapp">
+      <h1>Total:</h1>
+      <h2>${{ +prices.total.toFixed(2) }}</h2>
+    </div>
+
+    <button
+      class="btn"
+      (click)="pay()"
+      [disabled]="!card.valid || !name.errors?.['valid'] || !sc.errors?.['valid'] || !exp.errors?.['valid']"
+    >
+      Place Order <mat-icon class="icon">arrow_right</mat-icon>
+    </button>
+  </div>
+</div>

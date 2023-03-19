@@ -1,0 +1,17 @@
+<div class="main">
+  <div class="initials">
+    <p class="letter">{{ authService.user?.username?.slice(0, 2) }}</p>
+  </div>
+
+  <div class="details">
+    <h1 class="detail">Email:</h1>
+    <h1 class="detail">{{ authService.user?.email }}</h1>
+  </div>
+
+  <div class="details">
+    <h1 class="detail">Username:</h1>
+    <h1 class="detail">{{ authService.user?.username }}</h1>
+  </div>
+
+  <button class="btn" (click)="delete()">Delete Account</button>
+</div>
