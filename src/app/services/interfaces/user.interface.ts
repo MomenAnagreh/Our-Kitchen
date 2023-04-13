@@ -18,6 +18,7 @@ export interface Order {
   dishes: number[];
   quantities: number[];
   date: string;
+  shipping: string;
 }
 
 export interface inOrder {
@@ -25,6 +26,7 @@ export interface inOrder {
   dishes: number[];
   quantities: number[];
   date: string;
+  shipping: string;
 }
 
 export interface UserOrders {
@@ -32,4 +34,5 @@ export interface UserOrders {
   dishes: Dish[];
   quantities: number[];
   date: string;
+  shipping: string;
 }

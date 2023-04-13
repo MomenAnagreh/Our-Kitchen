@@ -10,6 +10,11 @@
         <h1>{{ getTotal(order) }}</h1>
       </div>
       <div class="headerItem">
+        <h2>Shipping Address</h2>
+        <p>{{ getShipping(order)[0] }}</p>
+        <p>{{ getShipping(order)[1] }}</p>
+      </div>
+      <div class="headerItem">
         <mat-icon class="icon" (click)="delete(order.date)">delete</mat-icon>
       </div>
     </div>

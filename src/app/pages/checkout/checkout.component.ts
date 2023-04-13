@@ -20,6 +20,7 @@ import { Order } from '../../services/interfaces/user.interface';
 })
 export class CheckoutComponent implements OnInit {
   form!: FormGroup;
+  form1!: FormGroup;
   prices: any = {
     subtotal: 0,
     service: 0,
@@ -28,6 +29,7 @@ export class CheckoutComponent implements OnInit {
   };
   spinner: boolean = false;
   done: boolean = false;
+  size: number = 1;
 
   get card(): FormControl {
     return this.form.get('card') as FormControl;
@@ -40,6 +42,19 @@ export class CheckoutComponent implements OnInit {
   }
   get sc(): FormControl {
     return this.form.get('sc') as FormControl;
+  }
+
+  get street(): FormControl {
+    return this.form1.get('street') as FormControl;
+  }
+  get city(): FormControl {
+    return this.form1.get('city') as FormControl;
+  }
+  get state(): FormControl {
+    return this.form1.get('state') as FormControl;
+  }
+  get code(): FormControl {
+    return this.form1.get('code') as FormControl;
   }
 
   constructor(
@@ -61,6 +76,16 @@ export class CheckoutComponent implements OnInit {
       name: ['', [this.checkInput(5)]],
       exp: ['', [this.checkInput(7)]],
       sc: ['', [this.checkInput(3)]],
+    });
+
+    this.form1 = this.fb.group({
+      street: ['', [Validators.required, Validators.minLength(2)]],
+      city: ['', [Validators.required, Validators.minLength(2)]],
+      state: ['', [Validators.required, Validators.minLength(2)]],
+      code: [
+        '',
+        [Validators.required, Validators.minLength(5), Validators.maxLength(5)],
+      ],
     });
   }
 
@@ -110,11 +135,20 @@ export class CheckoutComponent implements OnInit {
     this.spinner = true;
     let date = '' + this.datePipe.transform(new Date(), 'MMM d, y', 'es-ES');
     let time = '' + this.datePipe.transform(new Date(), 'h:mm a', 'es-ES');
+    let shipping_address =
+      this.street.value +
+      ';' +
+      this.city.value +
+      ', ' +
+      this.state.value +
+      ' ' +
+      this.code.value;
 
     let order: Order = {
       dishes: [],
       quantities: Object.values(this.generalService.cart),
       date: date + ' at ' + time,
+      shipping: shipping_address,
     };
     Object.keys(this.generalService.cart).forEach((key) => {
       order.dishes.push(+key);
@@ -133,10 +167,6 @@ export class CheckoutComponent implements OnInit {
       this.done = true;
       this.generalService.spinner = true;
     }, 3000);
-
-    setTimeout(() => {
-      this.router.navigate(['/orders']);
-    }, 6000);
   }
 
   private checkCard(control: AbstractControl) {
@@ -168,5 +198,22 @@ export class CheckoutComponent implements OnInit {
       }
       return result;
     };
+  }
+
+  extract() {
+    document.getElementsByTagName('select')[0].blur();
+  }
+
+  proceed() {
+    return (
+      !this.card.valid ||
+      !this.name.errors?.['valid'] ||
+      !this.sc.errors?.['valid'] ||
+      !this.exp.errors?.['valid'] ||
+      !this.street.valid ||
+      !this.city.valid ||
+      !this.state.valid ||
+      !this.code.valid
+    );
   }
 }

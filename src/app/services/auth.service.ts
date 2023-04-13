@@ -124,7 +124,9 @@ export class AuthService {
           this.updateUserOrders(data);
         })
       )
-      .subscribe();
+      .subscribe((_) => {
+        localStorage.removeItem('cart');
+      });
   }
 
   updateUserOrders(orders: number[]) {
@@ -157,6 +159,7 @@ export class AuthService {
         quantities: order.quantities,
         date: order.date,
         dishes: [],
+        shipping: order.shipping,
       };
       order.dishes.map((dishId: number) => {
         this.http

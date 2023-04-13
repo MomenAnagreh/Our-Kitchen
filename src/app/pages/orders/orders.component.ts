@@ -33,4 +33,8 @@ export class OrdersComponent implements OnInit {
   delete(date: string) {
     this.authService.deleteOrder(date);
   }
+
+  getShipping(order: UserOrders) {
+    return order.shipping.split(';');
+  }
 }
